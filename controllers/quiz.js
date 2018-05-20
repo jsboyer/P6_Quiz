@@ -161,6 +161,9 @@ exports.randomPlay = (req, res, next) => {
     
     console.log('aquí');
     req.session.allquizzes = [];
+    if (req.session.idsAzar ==  undefined) {
+        req.session.idsAzar = [];
+    }
     models.quiz.findAll()
     .each(quiz => {
         req.session.allquizzes.push(quiz);
