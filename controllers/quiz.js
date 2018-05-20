@@ -177,6 +177,7 @@ exports.randomPlay = (req, res, next) => {
             req.session.randomPlay = [];
             req.session.quizzesPorJugar = req.session.allquizzes;
             score = 0;
+            req.session.idsAzar = [];
         } else {
             score = req.session.randomPlay.length;
         }
