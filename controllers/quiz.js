@@ -231,8 +231,19 @@ exports.randomCheck = (req, res, next) => {
     const answer = query.answer || '';
 
     const result = answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim();
+    console.log('randomPlay ' + req.session.randomPlay);
 
     let score = req.session.randomPlay.length;
+
+    /*if (req.session.randomPlay == undefined || req.session.randomPlay == []){
+            req.session.randomPlay = [];
+            req.session.quizzesPorJugar = req.session.allquizzes;
+            score = 0;
+            req.session.idsAzar = [];
+        } else {
+            score = req.session.randomPlay.length;
+        } */
+
     
     if (req.session.randomPlay.length >= req.session.allquizzes.length){
         req.session.randomPlay = [];
@@ -242,6 +253,9 @@ exports.randomCheck = (req, res, next) => {
             score
         });
     } else if(result){
+        if (req.session.randomPlay == undefined || req.session.randomPlay == [] || req.session.randomPlay.length == 0 ){
+            score = 1;
+        }
         //let score = req.session.randomPlay.length;
         req.session.idsAzar = req.session.idsAzar;
         res.render('quizzes/random_result', {
@@ -251,7 +265,11 @@ exports.randomCheck = (req, res, next) => {
         });
     }else if (!result){
         //let score = 0;
+        if (req.session.randomPlay == undefined || req.session.randomPlay == [] || req.session.randomPlay.length == 0){
+            score = 0;
+        } else {
         score --;
+        }
         req.session.randomPlay = [];
         req.session.quizzesPorJugar = [];
         req.session.idsAzar = [];
