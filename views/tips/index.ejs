@@ -2,7 +2,9 @@
 <ul>
     <% for (var i in tips) { %>
         <% var tip = tips[i]; %>
-
+        <td colspan="2">
+            <small> (by <%= tip.author ? tip.author.username : "Anonymous" %>) </small>
+        </td>
         <% var accepted = tip.accepted; %>
         <% var isAdmin = session.user && session.user.isAdmin; %>
         <% var isQuizAuthor = session.user && quizAuthorId && quizAuthorId === session.user.id; %>
@@ -11,7 +13,6 @@
 
             <li>
                 <%= tip.text %>
-
                 <% if (!accepted && (isAdmin || isQuizAuthor)) { %>
 
                     <a href="/quizzes/<%= quizId %>/tips/<%= tip.id %>/accept?_method=PUT">
