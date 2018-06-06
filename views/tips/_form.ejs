@@ -1,0 +1,23 @@
+
+<div class="wideRow">
+<label for="preg"  class="itemNarrow">Text:</label>
+<input type="text" class="itemWide" id="preg" name="text" value="<%= tip.text %>" placeholder="Text" autocomplete="off"/>
+</div>
+
+<br/>
+<a href="/goback"><button type="button">Cancel</button></a>
+		
+        <% var isAdmin = session.user && session.user.isAdmin; %>
+        <% var isQuizAuthor = session.user && quiz.author.id && quiz.author.id === session.user.id; %>
+
+
+
+<% if (session.user) { %>
+    <% if (!session.user.isAdmin && !isQuizAuthor) { %>
+    	<p>Remember that now the tip is waiting for aproval from the Admin</p>
+        <% tip.accepted = false; %>
+    <% } %>
+<% } %>
+
+
+<input type="submit" value="Save">
